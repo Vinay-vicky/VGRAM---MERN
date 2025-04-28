@@ -14,7 +14,7 @@ const SuggestedUsers = () => {
     const handleFollow = async (userId) => {
         try {
             const res = await axios.post(
-                `http://localhost:8000/api/v1/user/${userId}/follow`,
+                `https://vgram-mern.onrender.com/api/v1/user/${userId}/follow`,
                 {},
                 { withCredentials: true }
             );
