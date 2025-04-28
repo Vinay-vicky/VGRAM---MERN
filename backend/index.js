@@ -6,11 +6,16 @@ import connectDB from "./utils/db.js";
 import userRoute from "./routes/user.route.js";
 import postRoute from "./routes/post.route.js";
 import messageRoute from "./routes/message.route.js";
+import path from "path";
 
 dotenv.config({});
 const app = express();
 
 const PORT = process.env.PORT || 3000;
+
+const __dirname = path.resolve();
+
+console.log(__dirname);
 
 app.get("/", (_,res) => {
     return res.status(200).json({
@@ -34,6 +39,11 @@ app.use("/api/v1/user", userRoute);
 app.use("/api/v1/post", postRoute);
 app.use("/api/v1/message", messageRoute);
 
+
+app.use(express.static(path.join(__dirname, "/frontend/dist")))
+app.get("*", (req,res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+})
 
 app.listen(PORT, () => {
     connectDB();
